@@ -20,7 +20,7 @@ bot.start((ctx) => {
         }
     })
         .then(response => {
-            console.log(response.data);
+            //console.log(response.data);
             Schedule.scheduleJob('0 */1 * * *', function(){
                 ctx.reply(response.data.rate);
             });
