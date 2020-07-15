@@ -3,7 +3,7 @@ const Schedule = require('node-schedule');
 const axios = require("axios");
 
 
-const bot = new Telegraf('1259504840:AAF9j9GskoKOr1K_mvpHEmJjXMN-QYjOqA0');
+const bot = new Telegraf(process.env.TELEGRAF-KEY);
 
 bot.start((ctx) => {
     //Exploring ctx object:
@@ -15,13 +15,13 @@ bot.start((ctx) => {
 
     axios.get('https://rest.coinapi.io/v1/exchangerate/ETH/USD', {
         headers:{
-            'X-CoinAPI-Key': '45C65539-2E96-47D3-BD26-90AE6313EEE8',
+            'X-CoinAPI-Key': process.env.COINAPI-KEY,
             'Accept': 'application/json'
         }
     })
         .then(response => {
             //console.log(response.data);
-            Schedule.scheduleJob('0 */1 * * *', function(){
+            Schedule.scheduleJob('*/30 * * * *', function(){
                 ctx.reply(response.data.rate);
             });
         });
@@ -39,6 +39,14 @@ bot.settings((ctx) => {
 // Create custom command
 bot.command(['mycommand', 'Mycommand', 'MyCommand'], (ctx) => {
     ctx.reply('My Custom Command!!!');
+});
+
+bot.command(['opsididitagain', 'Opsididitagain'], (ctx) => {
+    ctx.reply('Do you wanna touch me?');
+});
+
+bot.command(["Imaslaveforyou", "Imaslaveforyou"], (ctx) => {
+    ctx.reply('tell me more, what do you allow me to do you?');
 });
 
 // Hear for some text
