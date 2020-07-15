@@ -1,9 +1,10 @@
 const Telegraf = require('telegraf');
 const Schedule = require('node-schedule');
 const axios = require("axios");
+var dayjs = require('dayjs')
 
 
-const bot = new Telegraf(process.env.TELEGRAF-KEY);
+const bot = new Telegraf(process.env.TELEGRAF_KEY);
 
 bot.start((ctx) => {
     //Exploring ctx object:
@@ -11,17 +12,20 @@ bot.start((ctx) => {
     //console.log(ctx.chat)
     //console.log(ctx.message)
     //console.log(ctx.updateSubTypes)
-    ctx.reply('Welcome ' + ctx.from.first_name + ' ' +  ctx.from.last_name);
+    ctx.reply('Welcome ' + ctx.from.first_name);
 
     axios.get('https://rest.coinapi.io/v1/exchangerate/ETH/USD', {
         headers:{
-            'X-CoinAPI-Key': process.env.COINAPI-KEY,
+            'X-CoinAPI-Key': process.env.COINAPI_KEY,
             'Accept': 'application/json'
         }
     })
         .then(response => {
             //console.log(response.data);
+            var dateFormated = dayjs(response.data.time).format('MMMM D, YYYY h:mm A');
+            ctx.reply(`The Etherum value at ${dateFormated} is: ${response.data.rate}`);
             Schedule.scheduleJob('*/30 * * * *', function(){
+                ctx.reply(`The Etherum value at ${dateFormated} is: ${response.data.rate}`);
                 ctx.reply(response.data.rate);
             });
         });
