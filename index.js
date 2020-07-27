@@ -25,8 +25,7 @@ bot.start((ctx) => {
                 //console.log(response.data);
                 var dateFormated = dayjs(response.data.time).format('MMMM D, YYYY h:mm A');
                 ctx.reply(`The Etherum value at ${dateFormated} is: ${response.data.rate}`);
-                ctx.reply(`The Etherum value at ${dateFormated} is: ${response.data.rate}`);
-                ctx.reply(response.data.rate);
+                //ctx.reply(response.data.rate);
             });
     });
     
