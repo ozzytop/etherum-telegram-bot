@@ -14,21 +14,21 @@ bot.start((ctx) => {
     //console.log(ctx.updateSubTypes)
     ctx.reply('Welcome ' + ctx.from.first_name);
 
-    axios.get('https://rest.coinapi.io/v1/exchangerate/ETH/USD', {
-        headers:{
-            'X-CoinAPI-Key': process.env.COINAPI_KEY,
-            'Accept': 'application/json'
-        }
-    })
-        .then(response => {
-            //console.log(response.data);
-            var dateFormated = dayjs(response.data.time).format('MMMM D, YYYY h:mm A');
-            ctx.reply(`The Etherum value at ${dateFormated} is: ${response.data.rate}`);
-            Schedule.scheduleJob('*/30 * * * *', function(){
+    Schedule.scheduleJob('*/30 * * * *', function(){
+        axios.get('https://rest.coinapi.io/v1/exchangerate/ETH/USD', {
+            headers:{
+                'X-CoinAPI-Key': process.env.COINAPI_KEY,
+                'Accept': 'application/json'
+            }
+        })
+            .then(response => {
+                //console.log(response.data);
+                var dateFormated = dayjs(response.data.time).format('MMMM D, YYYY h:mm A');
+                ctx.reply(`The Etherum value at ${dateFormated} is: ${response.data.rate}`);
                 ctx.reply(`The Etherum value at ${dateFormated} is: ${response.data.rate}`);
                 ctx.reply(response.data.rate);
             });
-        });
+    });
     
 });
 
