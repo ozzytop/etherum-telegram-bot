@@ -26,9 +26,11 @@ If you wanna use this app follow these instructions:
 If you wanna run this application on your local:
 
 * Create a new Bot. For doing it go to Telegram and search for:
-`@BotFather`
+`@BotFather`.
+
 You should send a new message to the bot:
-`newbot`
+`newbot`.
+
 You should follow the instructions until you get the bot api credentials.
 * Create a new account on https://docs.coinapi.io/, get the api credentials
 * Add the credentials on the following env variable (check on the code):
